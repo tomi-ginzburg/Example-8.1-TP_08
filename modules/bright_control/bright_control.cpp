@@ -14,6 +14,30 @@
 
 //=====[Declaration and initialization of public global objects]===============
 
+/* Los pines asociados son PB_4, PA_0, PD_12
+ * Para el control de brillo se utiliza un PWM para cada pin
+ * Para eso se utiliza un ticker tickerBrightControl que ejecuta tickerCallbackBrightControl cada 1ms
+ * Con periodSFloat se configura el periodo del pwm, en este ejemplo en 10ms
+ * Se setea el dutty cycle en 0.5
+ * onTime y offTime contienen cuantas veces debe haber una interrupcion para cada estado que provoque un cambio en la salida
+ */
+
+/*      FUNCION                 FUNCION A LAS QUE LLAMA
+ * brightControlInit            setPeriod, setDutyCycle
+ * -> inicializa el ticker, setea los periodos a 10ms y los dutty a 0.5 
+ *
+ * tickerCallbackBrightControl  -
+ * -> para cada led cambia el estado de la salida si ya paso el tiempo suficiente
+ *
+ * setDutyCycle                 -
+ * -> setea los valores de onTime y offTime 
+ *
+ * setPeriod                    -
+ * -> setea el periodo del PWM
+ */
+
+// se usa un objeto de la clase Ticker para el manejo de interrupciones
+
 DigitalOut RGBLed[] = {(PB_4), (PA_0), (PD_12)};
 
 Ticker tickerBrightControl;
